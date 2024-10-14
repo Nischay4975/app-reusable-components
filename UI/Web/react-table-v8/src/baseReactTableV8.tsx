@@ -11,11 +11,12 @@ import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import SearchIcon from "@mui/icons-material/Search";
 import SendIcon from "@mui/icons-material/Send";
+import CloseIcon from '@mui/icons-material/Close';
 
 import HideColumns from "./Addons/VisibleColumnsFilter/visibleColumnsFilter";
 import FilterColumns from "./Addons/ColumnFilters/columnFilters";
 
-import "./baseTable.scss";
+import "./baseReactTableV8.scss";
 
 import {
   useReactTable,
@@ -295,7 +296,7 @@ type TablePropsType = {
 };
 
 export default function BaseTable(props: TablePropsType) {
-  const [data, setData] = useState(() => makeData(50));
+  const [data, setData] = useState(() => makeData(500));
   const columns = useMemo<ColumnDef<columnDataType, any>[]>(
     () => [...constructColumns(row_header)],
     []
@@ -470,6 +471,13 @@ export default function BaseTable(props: TablePropsType) {
                       >
                         <SearchIcon />
                       </IconButton>
+                      <IconButton
+                        onClick={() => {
+                          setGlobalFilterInput('')
+                          setGlobalFilter('')}}
+                      >
+                        <CloseIcon />
+                      </IconButton>
                     </InputAdornment>
                   }
                   label="Table Search"
@@ -506,6 +514,7 @@ export default function BaseTable(props: TablePropsType) {
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
+                                height:'37px'
                               }}
                             >
                               {flexRender(

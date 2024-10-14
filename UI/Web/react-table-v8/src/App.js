@@ -13,10 +13,10 @@ function App() {
           isGlobalFilter={true}
           paginatedTable={true}
           sortingTable={true}
-          multiSort={false}
-          columnFilters={false}
+          multiSort={true}
+          columnFilters={true}
           maxMultiSortColCount={5}
-          flexiblePageSize={false}
+          flexiblePageSize={true}
           initialState={{
             columnVisibility: { lastName: false },
             sorting: [
