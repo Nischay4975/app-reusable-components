@@ -1,0 +1,180 @@
+$header-background-color : #ff5500;
+$header-text-color: #FFFFFF;
+$header-font-size: 14px;
+$header-font-weight: 500;
+$odd-row-background-color : #fff;
+$even-row-background-color : #edf7fc;
+$row-text-color: #000000;
+$row-font-size: 14px;
+$row-font-weight: 400;
+$pagination-color: $header-background-color;
+$sort-active-color : red;
+$filter-active-color : rgb(255, 0, 0);
+$resize-active-color : blue;
+
+
+
+.table-region {
+    width: fit-content;
+    max-width: -webkit-fill-available;
+    max-height: 100%;
+    // height: 450px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    .table-top-region{
+        height: fit-content;
+        display: flex;
+        justify-content: space-between;
+        padding : 0 10px;
+    }
+
+    .table-wrapper {
+        flex-grow: 1;
+        overflow: scroll;
+        border-spacing: 0px;
+        border: 1px solid rgba(0, 0, 0, 0.07);
+
+        .table-container {
+            height: 100%;
+            // overflow: scroll;
+            scrollbar-width: thin;
+
+            .fixedHeader {
+                position: sticky;
+                top: 0px;
+                margin: 0 0 0 0;
+                z-index: 999;
+            }
+
+
+            table {
+                border-spacing: 0;
+                border-collapse: separate;
+
+                thead {
+                    th {
+                        background: $header-background-color !important;
+                        color: $header-text-color !important;
+                        font-size: $header-font-size;
+                        font-weight: $header-font-weight;
+                        position: relative;
+                    }
+                }
+
+                tr {
+                    :last-child {
+                        td {
+                            border-bottom: 0; //Prevents double borders at the bottom edge of the table
+                        }
+                    }
+                }
+
+                tbody {
+                    td {
+                        font-size: $row-font-size;
+                        font-weight: $row-font-weight;
+                        color: $row-text-color;
+
+                        a {
+                            color: #021e7f;
+                        }
+                    }
+                }
+
+                th,
+                td {
+                    box-sizing: border-box;
+                    margin: 0;
+                    padding: 0.5rem;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+                    border-right: 1px solid rgba(0, 0, 0, 0.07);
+
+                    :last-child {
+                        border-right: 0; //Prevents Double Border at the right edge
+                    }
+
+                    // .resizer {
+                    //     display: inline-block;
+                    //     /* background: black; */
+                    //     width: 1px;
+                    //     height: 100%;
+                    //     position: absolute;
+                    //     right: 0;
+                    //     top: 0;
+                    //     transform: translateX(50%);
+                    //     z-index: 1;
+                    //     touch-action: none;
+
+                    //     &.isResizing {
+                    //         background: white;
+                    //     }
+                    // }
+                }
+
+                tr:nth-child(odd) td {
+                    background: $odd-row-background-color;
+                }
+
+                tr:nth-child(even) td {
+                    background: $even-row-background-color;
+                }
+            }
+
+        }
+    }
+}
+
+.table-container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #F5F5F5;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    -webkit-box-shadow: inset 0 0 6px #abb2b6;
+    background-color: #abb2b6;
+}
+
+.ReactTablePagination {
+    position: sticky;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+}
+
+.header-filter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 10px;
+    margin-left: 10px;
+
+    .select-all {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.sort-inactive{
+    color : $header-text-color !important
+}
+
+.sort-active{
+    color : $sort-active-color !important
+}
+
+.filter-inactive{
+    color : $header-text-color !important
+}
+
+.filter-active{
+    color : $filter-active-color !important
+}

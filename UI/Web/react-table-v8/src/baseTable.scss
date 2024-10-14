@@ -1,0 +1,106 @@
+@import "./customReactTable.scss";
+
+html {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+.table-top-region{
+  display: flex;
+  align-items: center;
+  gap:5px;
+  >:nth-child(n){
+    margin: 1px;
+  }
+  margin-bottom: 10px;
+}
+
+.rt-pagination-container{
+  display: flex;
+  .rt-pagination{
+    display: flex;
+    align-items: center;
+    flex : 1 1;
+    padding: 10px;
+    background-color: #fafafa;
+    .rt-pagination-left{
+      display: flex;
+      flex: 1 1;
+      align-items: center;
+      height: 50px;
+      gap: 10px;
+      .pagination-button{
+        margin: 8px 0;
+        height: 30px;
+        background-color: #fafafa;
+        border: 1px solid rgba(0,0,0,0.2);
+        border-radius: 2px;
+        cursor: pointer;
+        padding : 0 10px;
+        &.active{
+          border-color: $pagination-color;
+          color: $pagination-color;
+        }
+      }
+    }
+    .go-to-container{
+      display: flex;
+      align-items: center;
+      margin-right: 5px;
+      .number-input{
+        height: 20px;
+        width: 55px;
+        border-radius: 3px;
+        border: 1px solid rgba(0,0,0,0.5);
+        margin: 0px 5px;
+      }
+    }
+    .rows-selector{
+      height: 25px;
+      border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.5);
+      margin: 0 5px;
+    }
+    .page-names{
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: gray;
+    }
+    .pagination-send{
+      color: $pagination-color;
+    }
+  }
+}
+
+.resizer {
+  position: absolute;
+  top: 8px;
+  height: calc(100% - 16px);
+  width: 5px;
+  border-left: 2px solid rgba(0, 0, 0, 0.5);
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+}
+
+.resizer.isResizing {
+  border-left: 2px solid $resize-active-color;
+  opacity: 1;
+}
+
+.resizer.ltr {
+  right: 0;
+}
+
+@media (hover: hover) {
+  .resizer {
+    opacity: 1;
+  }
+
+  *:hover > .resizer {
+    opacity: 1;
+  }
+}
+

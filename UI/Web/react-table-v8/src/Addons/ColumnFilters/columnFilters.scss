@@ -1,0 +1,26 @@
+.button-block{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.filter-block{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    min-height: 40px;
+    align-items: center;
+    .number-filter-container{
+        display: flex;
+        align-items: center;
+        width: 80%;
+        justify-content: center;
+        gap: 10px;
+    }
+    .column-data-number-filter{
+        height: 25px;
+    }
+    .column-data-string-filter{
+        width: 85%;
+    }
+}

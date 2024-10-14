@@ -1,23 +1,24 @@
+// @ts-nocheck
 import logo from './logo.svg';
 import './App.css';
+import BaseTable from './baseReactTableV8';
+import BaseTable2 from './baseTable2';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div style={{width: '100%'}}>
+        <BaseTable
+          isColumnFooterVisible={false}
+          isColumnHidingVisible={true}
+          isGlobalFilter={true}
+          pagination={true}
+          sorting={true}
+          multiSort={true}
+          maxMultiSortColCount={5}
+          flexiblePageSize={true}
+        />
+      </div>
     </div>
   );
 }
