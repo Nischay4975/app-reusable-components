@@ -1,4 +1,3 @@
-import { CSSProperties, useEffect } from "react";
 import { useMemo, useState } from "react";
 import {
   IconButton,
@@ -21,9 +20,7 @@ import "./baseReactTableV8.scss";
 import {
   useReactTable,
   createColumnHelper,
-  flexRender,
-  Column,
-  ColumnDef,
+  flexRender, ColumnDef,
   RowData,
   ColumnFiltersState,
   ColumnOrderState,
@@ -36,7 +33,7 @@ import {
   getFilteredRowModel,
   getGroupedRowModel,
   getPaginationRowModel,
-  getSortedRowModel,
+  getSortedRowModel
 } from "@tanstack/react-table";
 import { makeData } from "./makeData";
 
