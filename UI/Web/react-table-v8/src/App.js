@@ -2,7 +2,6 @@
 import logo from './logo.svg';
 import './App.css';
 import BaseTable from './baseReactTableV8';
-import BaseTable2 from './baseTable2';
 
 function App() {
   return (
@@ -12,11 +11,21 @@ function App() {
           isColumnFooterVisible={false}
           isColumnHidingVisible={true}
           isGlobalFilter={true}
-          pagination={true}
-          sorting={true}
-          multiSort={true}
+          paginatedTable={true}
+          sortingTable={true}
+          multiSort={false}
+          columnFilters={false}
           maxMultiSortColCount={5}
-          flexiblePageSize={true}
+          flexiblePageSize={false}
+          initialState={{
+            columnVisibility: { lastName: false },
+            sorting: [
+              {
+                id: "progress",
+                desc: false,
+              },
+            ],
+          }}
         />
       </div>
     </div>

@@ -96,7 +96,7 @@ html {
 
 @media (hover: hover) {
   .resizer {
-    opacity: 1;
+    opacity: 0;
   }
 
   *:hover > .resizer {

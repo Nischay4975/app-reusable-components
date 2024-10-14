@@ -285,9 +285,9 @@ type TablePropsType = {
   isColumnFooterVisible?: boolean;
   isColumnHidingVisible?: boolean;
   isGlobalFilter?: boolean;
-  pagination?: boolean;
+  paginatedTable?: boolean;
   flexiblePageSize?: boolean;
-  sorting?: boolean;
+  sortingTable?: boolean;
   multiSort?: boolean;
   maxMultiSortColCount?: number;
   columnFilters?: boolean;
@@ -295,7 +295,7 @@ type TablePropsType = {
 };
 
 export default function BaseTable(props: TablePropsType) {
-  const [data, setData] = useState(() => makeData(500));
+  const [data, setData] = useState(() => makeData(50));
   const columns = useMemo<ColumnDef<columnDataType, any>[]>(
     () => [...constructColumns(row_header)],
     []
@@ -330,12 +330,14 @@ export default function BaseTable(props: TablePropsType) {
     ? props.flexiblePageSize
     : false;
 
+    const isTablePaginated = (props.paginatedTable === false) ? props.paginatedTable : true;
+    const isTableSorted = (props.sortingTable === false) ? props.sortingTable : true ;
+
   const table = useReactTable({
     data,
     columns,
     defaultColumn: {
       minSize: 50,
-      maxSize: 400,
     },
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
@@ -344,12 +346,12 @@ export default function BaseTable(props: TablePropsType) {
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFilteredRowModel: getFilteredRowModel(),
     getGroupedRowModel: getGroupedRowModel(),
-    getPaginationRowModel: props.pagination
+    getPaginationRowModel: props.paginatedTable
       ? getPaginationRowModel()
       : undefined,
     getSortedRowModel:
-      props.sorting === false ? undefined : getSortedRowModel(),
-    isMultiSortEvent: (e) => (props.multiSort ? props.multiSort : true),
+    (props.sortingTable === false || props.sortingTable === undefined) ? undefined : getSortedRowModel(),
+    isMultiSortEvent: (e) => ((props.multiSort === false) ? props.multiSort : true),
     maxMultiSortColCount: props.maxMultiSortColCount
       ? props.maxMultiSortColCount
       : 5,
@@ -489,9 +491,6 @@ export default function BaseTable(props: TablePropsType) {
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     const { column } = header;
-                    if(header.id === 'age'){
-                      console.log ('header', header)
-                    }
                     return (
                       <th
                         key={header.id}
@@ -514,7 +513,7 @@ export default function BaseTable(props: TablePropsType) {
                                 header.getContext()
                               )}
                               {/* Sorting Icons Placement */}
-                              {isColumnSortable(column) && (
+                              {(isColumnSortable(column) && isTableSorted) && (
                                 <IconButton
                                   onClick={column.getToggleSortingHandler()}
                                 >
@@ -551,20 +550,21 @@ export default function BaseTable(props: TablePropsType) {
                               )}
                             </div>
                             <div
-                          {...{
-                            onDoubleClick: () => header.column.resetSize(),
-                            onMouseDown: header.getResizeHandler(),
-                            onTouchStart: header.getResizeHandler(),
-                            className: `resizer ${
-                              table.options.columnResizeDirection
-                            } ${
-                              header.column.getIsResizing() ? "isResizing" : ""
-                            }`,
-                          }}
-                        />
+                              {...{
+                                onDoubleClick: () => header.column.resetSize(),
+                                onMouseDown: header.getResizeHandler(),
+                                onTouchStart: header.getResizeHandler(),
+                                className: `resizer ${
+                                  table.options.columnResizeDirection
+                                } ${
+                                  header.column.getIsResizing()
+                                    ? "isResizing"
+                                    : ""
+                                }`,
+                              }}
+                            />
                           </>
                         )}
-                        
                       </th>
                     );
                   })}
@@ -576,14 +576,18 @@ export default function BaseTable(props: TablePropsType) {
               {table.getRowModel().rows.map((row) => (
                 <tr key={row.id}>
                   {row.getVisibleCells().map((cell) => {
-                    return (                    
-                    <td key={cell.id} style={{ width: cell.column.getSize()}}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  )})}
+                    return (
+                      <td
+                        key={cell.id}
+                        style={{ width: cell.column.getSize() }}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    );
+                  })}
                 </tr>
               ))}
             </tbody>
@@ -607,9 +611,9 @@ export default function BaseTable(props: TablePropsType) {
               </tfoot>
             )}
           </table>
-          
         </div>
-        <div className="rt-pagination-container flex items-center gap-2">
+        {isTablePaginated && (
+          <div className="rt-pagination-container flex items-center gap-2">
             <div className="rt-pagination">
               <div className="rt-pagination-left">
                 <button
@@ -679,6 +683,7 @@ export default function BaseTable(props: TablePropsType) {
               )}
             </div>
           </div>
+        )}
       </div>
       {/* <div>
         <pre>{JSON.stringify(table.getState(), null, 1)}</pre>
